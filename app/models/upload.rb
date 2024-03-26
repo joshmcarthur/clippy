@@ -7,6 +7,7 @@ class Upload < ApplicationRecord
 
   has_one_attached :file
   has_one_attached :audio
+  has_many :audio_segments, -> { order(:sequence_number) }, dependent: :destroy
 
   validate :validate_file_content_type
   validate :validate_file_attached

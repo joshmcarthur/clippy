@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sequence_number: 1
+  upload: one
+
+two:
+  sequence_number: 1
+  upload: two
