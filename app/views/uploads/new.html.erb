@@ -1,35 +1,35 @@
-<h1>New upload</h1>
+<% provide(:title, "Upload a new video or audio file") %>
 
-<%= form_with(model: @upload) do |form| %>
-  <% if @upload.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@upload.errors.count, "error") %> prohibited this upload from being saved:</h2>
+<div class="container my-5">
+  <%= link_to "↰ All uploads", uploads_path, class: "mb-3 d-block" %>
 
-      <ul>
-        <% @upload.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <%= form_with(model: @upload, html: { class: "dropzone" }) do |form| %>
+    <legend class="h1">Upload a new video or audio file</legend>
+
+    <div class="my-2">
+      <%= form.label :file, class: "form-label" %>
+      <%= form.file_field :file, direct_upload: true,
+                                 class: "sr-only form-control #{'is-invalid' if @upload.errors[:file].any?}" %>
+      <% if @upload.errors[:file].any? %>
+        <div class="invalid-feedback d-block">File <%= @upload.errors[:file].to_sentence %></div>
+      <% end %>
+    </div>
+
+    <div class="my-2">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control #{'is-invalid' if @upload.errors[:file].any?}" %>
+      <% if @upload.errors[:name].any? %>
+        <div class="invalid-feedback d-block">Name <%= @upload.errors[:name].to_sentence %></div>
+      <% end %>
+    </div>
+
+    <div class="row mt-5 align-items-center justify-content-between">
+      <div class="col-auto">
+        <%= link_to "Cancel upload", uploads_path %>
+      </div>
+      <div class="col-auto">
+        <%= form.submit "Start upload", class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :file, style: "display: block" %>
-    <%= form.file_field :file, direct_upload: true %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<br>
-
-<div>
-  <%= link_to "Back to uploads", uploads_path %>
 </div>
