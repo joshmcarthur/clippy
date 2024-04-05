@@ -1,42 +1,26 @@
-<h1>Editing upload</h1>
+<% provide(:title, "Edit #{@upload.name}") %>
 
-<h1>New upload</h1>
+<div class="container my-5">
+  <%= link_to "↰ '#{@upload.name}'", @upload, class: "mb-3 d-block" %>
 
-<%= form_with(model: @upload) do |form| %>
-  <% if @upload.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@upload.errors.count, "error") %> prohibited this upload from being saved:</h2>
+  <%= form_with(model: @upload) do |form| %>
+    <legend class="h1">Editing '<%= @upload.name %>'</legend>
 
-      <ul>
-        <% @upload.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="my-2">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control #{'is-invalid' if @upload.errors[:file].any?}" %>
+      <% if @upload.errors[:name].any? %>
+        <div class="invalid-feedback d-block">Name <%= @upload.errors[:name].to_sentence %></div>
+      <% end %>
+    </div>
+
+    <div class="row mt-5 align-items-center justify-content-between">
+      <div class="col-auto">
+        <%= link_to "Back to '#{@upload.name}'", @upload %>
+      </div>
+      <div class="col-auto">
+        <%= form.submit "Update", class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<br>
-
-<div>
-  <%= link_to "Back to uploads", uploads_path %>
-</div>
-
-
-<%= render "form", upload: @upload %>
-
-<br>
-
-<div>
-  <%= link_to "Show this upload", @upload %> |
-  <%= button_to "Destroy this upload", @upload, method: :delete %>
 </div>
