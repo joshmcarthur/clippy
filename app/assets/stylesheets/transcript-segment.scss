@@ -1,0 +1,9 @@
+.transcript-segment {
+  &.played {
+    opacity: 0.5;
+  }
+
+  &.playing {
+    text-decoration: underline !important;
+  }
+}

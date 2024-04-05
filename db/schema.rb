@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_25_200416) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_01_174532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_200416) do
     t.json "raw", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "text"
+    t.text "formatted"
     t.index ["upload_id", "sequence_number"], name: "index_audio_segments_on_upload_id_and_sequence_number", unique: true
     t.index ["upload_id"], name: "index_audio_segments_on_upload_id"
   end
@@ -146,6 +148,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_200416) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "notes"
+    t.json "entities", default: {}
     t.index ["transcript_id"], name: "index_summaries_on_transcript_id"
   end
 

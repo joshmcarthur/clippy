@@ -4,19 +4,6 @@
     <%= upload.name %>
   </p>
 
-  <% if upload.video? %>
-    <video controls>
-      <source src="<%= url_for(upload.file) %>" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  <% elsif upload.audio? %>
-    <audio controls>
-      <source src="<%= url_for(upload.audio_url) %>" type="audio/mpeg">
-      Your browser does not support the audio tag.
-    </audio>
-  <% else %>
-    No preview is available for this file. <br>
-    <%= link_to "Download", url_for(upload.file), target: "_blank", download: true %>
-  <% end %>
+
 
 </div>

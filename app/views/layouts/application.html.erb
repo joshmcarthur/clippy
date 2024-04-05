@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
   <head>
-    <title>Clippy</title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} on " : "" %>Clippy</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

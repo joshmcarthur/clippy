@@ -4,10 +4,13 @@
 # Stores the top-level file upload record
 class Upload < ApplicationRecord
   UPLOAD_MIME_TYPES = %w[video/mp4 video/webm audio/mpeg].freeze
+  DEFAULT_LANGUAGE = "en-NZ".freeze # TODO: Move to config
 
   has_one_attached :file
   has_one_attached :audio
   has_many :audio_segments, -> { order(:sequence_number) }, dependent: :destroy
+  has_one :transcript, dependent: :destroy
+  has_one :summary, through: :transcript
 
   validate :validate_file_content_type
   validate :validate_file_attached
@@ -20,7 +23,23 @@ class Upload < ApplicationRecord
     file.content_type.start_with?('audio/')
   end
 
+  def language_iso639_1
+    language.split("-").first
+  end
+
+  def audio_extractable?
+    file.attached? && (video? || audio?)
+  end
+
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
+
   private
+
+  def default_language
+    self.language ||= DEFAULT_LANGUAGE
+  end
 
   def validate_file_attached
     return if file.attached?
@@ -34,4 +53,6 @@ class Upload < ApplicationRecord
     file.purge
     errors.add(:file, :invalid_content_type)
   end
+
+
 end

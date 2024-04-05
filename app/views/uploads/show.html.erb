@@ -1,8 +1,53 @@
-<p style="color: green"><%= notice %></p>
+<% provide(:title, @upload.name) %>
 
-<%= render @upload %>
+<div class="container my-4" data-controller="upload-sync">
+  <div class="row align-items-center">
+    <div class="col">
+      <h1><%= @upload.name %></h1>
 
-<div>
-  <%= link_to "Edit this upload", edit_upload_path(@upload) %> |
-  <%= link_to "Back to uploads", uploads_path %>
+    </div>
+    <div class="col-auto">
+      <div class="controls">
+        <small class="text-muted fw-semibold">
+          Created at
+          <%= time_tag @upload.created_at, localize(@upload.created_at, format: :long) %>
+        </small>
+
+        <%= link_to "Edit", edit_upload_path(@upload), class: "btn btn-primary" %>
+        <%= link_to "Delete", @upload, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-lg-6 h-auto">
+      <% if @upload.video? %>
+        <video controls class="mw-100 w-100 object-fit-contain rounded sticky-top shadow" style="top: 20px;" data-upload-sync-target="media">
+          <source src="<%= url_for(@upload.file) %>" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      <% elsif @upload.audio? %>
+        <audio controls>
+          <source src="<%= url_for(@upload.audio_url) %>" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+      <% else %>
+        No preview is available for this file. <br>
+        <%= link_to "Download", url_for(@upload.file), target: "_blank", download: true %>
+      <% end %>
+
+       <h2 class="h4">Summary</h2>
+      <%= simple_format @upload.summary&.text %>
+
+      <h2 class="mt-3 h4">Entities</h2>
+      <% @upload.summary&.entities.each do |entity| %>
+        <%= content_tag :span, "#{entity["name"]} (#{entity["type"]})", class: "badge fs-6 my-2 text-bg-secondary" %>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <h2 class="h4">Transcript</h2>
+      <%= render "transcript", upload: @upload %>
+    </div>
+  </div>
 </div>
