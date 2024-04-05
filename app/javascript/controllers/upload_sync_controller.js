@@ -26,7 +26,12 @@ export default class extends Controller {
         }
 
         if (startTime < currentTime && currentTime < endTime) {
-          segment.scrollIntoView({ block: "center" });
+          const scrollThreshold = 500; // Adjust this value to determine the scroll threshold
+
+          if (Math.abs(segment.getBoundingClientRect().top) < scrollThreshold) {
+            segment.scrollIntoView({ block: "start" });
+          }
+
           segment.classList.add("playing");
         } else {
           segment.classList.remove("playing");
