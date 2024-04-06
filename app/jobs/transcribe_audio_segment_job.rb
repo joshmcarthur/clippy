@@ -10,7 +10,8 @@ class TranscribeAudioSegmentJob < SummariseJob
   PROMPT
 
   def perform(audio_segment)
-    previous_segment = audio_segment.upload.audio_segments.find_by(sequence_number: audio_segment.sequence_number - 1)
+    previous_segment = audio_segment.upload.audio_segments.find_by(
+      sequence_number: [audio_segment.sequence_number - 1, 0].max)
     upload = audio_segment.upload
     client = OpenAI::Client.new
 
