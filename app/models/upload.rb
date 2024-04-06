@@ -18,6 +18,9 @@ class Upload < ApplicationRecord
   before_validation :default_language, on: :create
   before_validation :default_name, on: :create
 
+  # When the model instance is changed, a message will sent over
+  # ActionCable that notifies the page to reload.
+  broadcasts_refreshes
 
   def video?
     file.content_type.start_with?('video/')
