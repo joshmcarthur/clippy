@@ -22,7 +22,7 @@ class UploadsController < ApplicationController
       if @upload.save
         ProcessUploadJob.perform_later(@upload)
 
-        format.html { redirect_to uploads_url, notice: t(:success) }
+        format.html { redirect_to uploads_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @upload }
       else
         format.html do
@@ -38,7 +38,7 @@ class UploadsController < ApplicationController
   def update
     respond_to do |format|
       if @upload.update(upload_params)
-        format.html { redirect_to upload_url(@upload), notice: t(:success) }
+        format.html { redirect_to upload_url(@upload), notice: t(".success") }
         format.json { render :show, status: :ok, location: @upload }
       else
         format.html { render :edit, status: :unprocessable_entity }
