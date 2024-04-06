@@ -1,16 +1,23 @@
 <% provide(:title, "Uploads") %>
-<div class="container my-5">
-   <div class="row mb-3">
-    <div class="col">
-      <h1 class="h2">Uploads<h1>
-    </div>
 
+<div class="container py-5">
+   <div class="row mb-5 align-items-center">
+    <div class="col">
+      <h1 class="h2 lh-1">
+        Uploads
+        <br />
+        <%= form_with model: Upload.new, data: { controller: "upload auto-submit" } do |f| %>
+          <%= f.file_field :file, direct_upload: true, data: { upload_target: "input", action: "change->auto-submit#submit" }, class: "visually-hidden form-control" %>
+          <small class="fs-6">Drop a file anywhere to upload or
+            <%= f.label :file, "select a file", class: "text-decoration-underline link-offset-3" %>
+          </small>
+        <% end %>
+      <h1>
+    </div>
     <div class="col-auto">
-      <%= link_to "New Upload", new_upload_path, class: "btn btn-primary" %>
+      <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control form-control-lg" %>
     </div>
   </div>
-
-  <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control form-control-lg mb-5" %>
 
 
   <% @uploads.each do |upload| %>
