@@ -14,25 +14,38 @@
 
 
   <% @uploads.each do |upload| %>
-    <div class="row align-items-center position-relative">
+    <%= turbo_stream_from upload %>
+    <div class="row align-items-center position-relative mb-4 <%= 'opacity-50' unless upload.processed? %>">
         <div class="col-auto">
           <%= image_tag upload.file.preview(resize_to_fit: [128, 100]), class: "rounded" %>
         </div>
 
-        <div class="col">
-          <h1 class="h5 mb-0"><%= upload.name %></h1>
+        <div class="col lh-sm">
+          <h1 class="h5 mb-1"><%= upload.name %></h1>
           <small class="text-muted">
             Created at
             <%= time_tag upload.created_at, localize(upload.created_at, format: :long) %>
-            &nbsp;&middot;&nbsp;
+          </small>
+          <% if upload.audio.analyzed? %>
+          <br /><small class="text-muted">
             Duration:
             <%= Time.at(upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
           </small>
+          <% end %>
+          <% if !upload.processed? && upload.processing_started_at %>
+            <br /><small class="text-muted">Processing started at
+                          <%= time_tag upload.processing_started_at, localize(upload.created_at, format: :long) %>
+            </small>
+          <% elsif !upload.processed? %>
+            <br /><small class="text-muted">Processing starting...</small>
+          <% end %>
         </div>
 
-        <div class="col-auto">
-          <%= link_to "View", upload, class: "stretched-link" %>
-        </div>
+        <% if upload.processed? %>
+          <div class="col-auto">
+            <%= link_to "View", upload, class: "stretched-link" %>
+          </div>
+        <% end %>
     </div>
   <% end %>
 </div>
