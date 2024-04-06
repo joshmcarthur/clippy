@@ -6,7 +6,7 @@ class TranscribeAudioSegmentJob < SummariseJob
     The priority is for the transcript to be readable with paragraphs added where necessary.
     Do not add any spacing to the start or end of the transcript, because
     this is only one segment of the full transcript.
-    Respond with the formatted text d only.
+    Respond with the formatted text only.
   PROMPT
 
   def perform(audio_segment)
