@@ -15,6 +15,10 @@ class Upload < ApplicationRecord
   validate :validate_file_content_type
   validate :validate_file_attached
 
+  before_validation :default_language, on: :create
+  before_validation :default_name, on: :create
+
+
   def video?
     file.content_type.start_with?('video/')
   end
@@ -37,6 +41,10 @@ class Upload < ApplicationRecord
 
   private
 
+  def default_name
+    name.presence || (self.name = file.filename.base)
+  end
+
   def default_language
     self.language ||= DEFAULT_LANGUAGE
   end
@@ -53,6 +61,4 @@ class Upload < ApplicationRecord
     file.purge
     errors.add(:file, :invalid_content_type)
   end
-
-
 end
