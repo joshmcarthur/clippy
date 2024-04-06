@@ -10,7 +10,13 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="min-vh-100">
+    <% if flash[:alert] || flash[:notice] %>
+      <div class="container my-5">
+        <div class="alert alert-info" role="alert"><%= flash[:alert] || flash[:notice] %></div>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
