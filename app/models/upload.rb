@@ -30,6 +30,10 @@ class Upload < ApplicationRecord
     file.content_type.start_with?('audio/')
   end
 
+  def processed?
+    processing_ended_at.present?
+  end
+
   def language_iso639_1
     language.split("-").first
   end
