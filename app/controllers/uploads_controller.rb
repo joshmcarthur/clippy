@@ -10,11 +10,6 @@ class UploadsController < ApplicationController
   def show
   end
 
-  # GET /uploads/new
-  def new
-    @upload = Upload.new
-  end
-
   # GET /uploads/1/edit
   def edit
   end
