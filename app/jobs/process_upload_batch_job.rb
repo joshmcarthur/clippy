@@ -11,6 +11,7 @@ class ProcessUploadBatchJob < ApplicationJob
 
     case batch.properties[:step]
     when :start
+      upload.update!(processing_started_at: Time.zone.now)
       batch.enqueue(step: :extract_audio) do
         ExtractAudioJob.perform_later(upload)
       end
@@ -30,6 +31,8 @@ class ProcessUploadBatchJob < ApplicationJob
         SummariseEntitiesJob.perform_later(upload)
         SummariseNotesJob.perform_later(upload)
       end
+    when :summarise
+      upload.update!(processing_ended_at: Time.zone.now)
     end
   end
 end
