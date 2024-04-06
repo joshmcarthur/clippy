@@ -30,7 +30,10 @@ class UploadsController < ApplicationController
         format.html { redirect_to uploads_url, notice: t(:success) }
         format.json { render :show, status: :created, location: @upload }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          flash[:alert] = @upload.errors.full_messages.to_sentence
+          redirect_back fallback_location: uploads_url
+        end
         format.json { render json: @upload.errors, status: :unprocessable_entity }
       end
     end
