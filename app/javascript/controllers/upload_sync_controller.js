@@ -20,9 +20,9 @@ export default class extends Controller {
         const endTime = parseFloat(segment.dataset.ends);
 
         if (startTime < currentTime) {
-          segment.classList.add("played");
+          segment.classList.add("opacity-50");
         } else {
-          segment.classList.remove("played");
+          segment.classList.remove("opacity-50");
         }
 
         if (startTime < currentTime && currentTime < endTime) {
@@ -32,9 +32,9 @@ export default class extends Controller {
             segment.scrollIntoView({ block: "start" });
           }
 
-          segment.classList.add("playing");
+          segment.classList.add("link-underline-opacity-75");
         } else {
-          segment.classList.remove("playing");
+          segment.classList.remove("link-underline-opacity-75");
         }
       });
     });
