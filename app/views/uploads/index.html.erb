@@ -3,8 +3,10 @@
 <div class="container py-5">
    <div class="row mb-5 align-items-center">
     <div class="col">
+      <%= link_to "↰ All uploads", uploads_path(q: ""), class: "d-block mb-3" if @search %>
+
       <h1 class="h2 lh-1">
-        Uploads
+        <%= @search ? "Search results" : "Uploads" %>
         <br />
         <%= form_with model: Upload.new, data: { controller: "upload auto-submit" } do |f| %>
           <%= f.file_field :file, direct_upload: true, data: { upload_target: "input", action: "change->auto-submit#submit" }, class: "visually-hidden form-control" %>
@@ -14,9 +16,13 @@
         <% end %>
       <h1>
     </div>
-    <div class="col-auto">
-      <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control form-control-lg" %>
-    </div>
+    <%= form_with method: :get, url: search_uploads_path, html: { class: "col-auto" } do |f|%>
+      <%= search_field_tag :q, params[:q],
+                           placeholder: "Search",
+                           class: "form-control form-control-lg",
+                           data: { controller: "search", search_reset_path_value: uploads_path }
+      %>
+    <% end %>
   </div>
 
 
@@ -53,6 +59,17 @@
             <%= link_to "View", upload, class: "stretched-link" %>
           </div>
         <% end %>
+    </div>
+  <% end %>
+
+  <% if @uploads.empty? && @search %>
+    <div class="alert alert-info">
+      No uploads found for "<%= @search.term %>".
+      <%= link_to "View all uploads", uploads_path, class: "text-reset" %>
+    </div>
+  <% elsif @uploads.empty?  %>
+    <div class="alert alert-info">
+      No uploads added yet. Drop a file anywhere to upload.
     </div>
   <% end %>
 </div>
