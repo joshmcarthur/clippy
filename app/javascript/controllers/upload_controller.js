@@ -6,10 +6,18 @@ export default class extends Controller {
   connect() {
     document.body.addEventListener("dragover", this.dragOver.bind(this));
     document.body.addEventListener("drop", this.drop.bind(this));
+    this.progressBar = Turbo.session.adapter.progressBar;
+    this.inputTarget.addEventListener("direct-upload:progress", this.setProgress.bind(this));
   }
 
   dragOver(event) {
     event.preventDefault();
+  }
+
+  setProgress(event) {
+    const { progress } = event.detail;
+    this.progressBar.setValue(progress);
+    this.progressBar.show();
   }
 
   drop(event) {
