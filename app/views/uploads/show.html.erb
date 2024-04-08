@@ -1,7 +1,11 @@
 <% provide(:title, @upload.name) %>
 
 <div class="container-fluid container-lg my-5" data-controller="upload-sync">
-  <%= link_to "↰ All uploads", uploads_path, class: "d-block mb-3" %>
+  <% if from_search? %>
+    <%= link_to "↰ Back to results", request.referer, class: "d-block mb-3" %>
+  <% else %>
+    <%= link_to "↰ All uploads", uploads_path, class: "d-block mb-3" %>
+  <% end %>
 
   <div class="row align-items-center mb-5">
     <div class="col-12 col-lg">
@@ -30,9 +34,7 @@
     </div>
 
     <div class="col-12 col-lg-9 mb-4">
-      <% @upload.summary&.entities.each do |entity| %>
-        <%= content_tag :span, "#{entity["name"] || entity["entity"]} (#{entity["type"]})", class: "badge fs-6 my-2 bg-transparent border text-wrap" %>
-      <% end %>
+      <%= render "entities" %>
     </div>
 
     <div class="col-5 col-lg-6">
