@@ -6,6 +6,6 @@ class UploadSearchesController < ApplicationController
     @search = UploadSearch.new(term: term)
     @uploads = @search.results
 
-    render template: "uploads/index" }
+    render template: "uploads/index"
   end
 end
