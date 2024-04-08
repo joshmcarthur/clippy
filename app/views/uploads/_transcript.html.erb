@@ -1,6 +1,6 @@
 <section data-upload-sync-target="transcript">
 <% upload.transcript.segments.each do |segment| %>
-  <%= content_tag :a, segment.text, data: { bs_toggle: "tooltip", starts: segment.range.first, ends: segment.range.last },
+  <%= content_tag :a, segment.text, data: { starts: segment.range.first, ends: segment.range.last },
                   id: dom_id(segment),
                   href: "##{dom_id(segment)}",
                   title: Time.at(segment.range.first).utc.strftime("%H:%M:%S"),
