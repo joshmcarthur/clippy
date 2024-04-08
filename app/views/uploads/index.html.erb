@@ -3,10 +3,8 @@
 <div class="container py-5">
    <div class="row mb-5 align-items-center">
     <div class="col">
-      <%= link_to "↰ All uploads", uploads_path(q: ""), class: "d-block mb-3" if @search %>
-
       <h1 class="h2 lh-1">
-        <%= @search ? "Search results" : "Uploads" %>
+        Uploads
         <br />
         <%= form_with model: Upload.new, data: { controller: "upload auto-submit" } do |f| %>
           <%= f.file_field :file, direct_upload: true, data: { upload_target: "input", action: "change->auto-submit#submit" }, class: "visually-hidden form-control" %>
@@ -16,7 +14,7 @@
         <% end %>
       <h1>
     </div>
-    <%= form_with method: :get, url: search_uploads_path, html: { class: "col-auto" } do |f|%>
+    <%= form_with method: :get, url: search_uploads_path, html: { data: { turbo_frame: :uploads }, class: "col-auto" } do |f|%>
       <%= search_field_tag :q, params[:q],
                            placeholder: "Search",
                            class: "form-control form-control-lg",
@@ -25,52 +23,55 @@
     <% end %>
   </div>
 
+  <%= turbo_frame_tag :uploads do %>
+    <%= content_tag(:h2, "Search results for '#{@search.term}'", class: "h4 mb-3") if @search %>
 
-  <% @uploads.each do |upload| %>
-    <%= turbo_stream_from upload %>
-    <div class="row align-items-center position-relative mb-4 <%= 'opacity-50' unless upload.processed? %>">
-        <div class="col-auto">
-          <%= image_tag upload.file.preview(resize_to_fit: [128, 100]), class: "rounded" %>
-        </div>
-
-        <div class="col lh-sm">
-          <h1 class="h5 mb-1"><%= upload.name %></h1>
-          <small class="text-muted">
-            Created at
-            <%= time_tag upload.created_at, localize(upload.created_at, format: :long) %>
-          </small>
-          <% if upload.audio.analyzed? %>
-          <br /><small class="text-muted">
-            Duration:
-            <%= Time.at(upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
-          </small>
-          <% end %>
-          <% if !upload.processed? && upload.processing_started_at %>
-            <br /><small class="text-muted">Processing started at
-                          <%= time_tag upload.processing_started_at, localize(upload.created_at, format: :long) %>
-            </small>
-          <% elsif !upload.processed? %>
-            <br /><small class="text-muted">Processing starting...</small>
-          <% end %>
-        </div>
-
-        <% if upload.processed? %>
+    <% @uploads.each do |upload| %>
+      <%= turbo_stream_from upload %>
+      <div class="row align-items-center position-relative mb-4 <%= 'opacity-50' unless upload.processed? %>">
           <div class="col-auto">
-            <%= link_to "View", upload, class: "stretched-link" %>
+            <%= image_tag upload.file.preview(resize_to_fit: [128, 100]), class: "rounded" %>
           </div>
-        <% end %>
-    </div>
-  <% end %>
 
-  <% if @uploads.empty? && @search %>
-    <div class="alert alert-info">
-      No uploads found for "<%= @search.term %>".
-      <%= link_to "View all uploads", uploads_path, class: "text-reset" %>
-    </div>
-  <% elsif @uploads.empty?  %>
-    <div class="alert alert-info">
-      No uploads added yet. Drop a file anywhere to upload.
-    </div>
+          <div class="col lh-sm">
+            <h1 class="h5 mb-1"><%= upload.name %></h1>
+            <small class="text-muted">
+              Created at
+              <%= time_tag upload.created_at, localize(upload.created_at, format: :long) %>
+            </small>
+            <% if upload.audio.analyzed? %>
+            <br /><small class="text-muted">
+              Duration:
+              <%= Time.at(upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
+            </small>
+            <% end %>
+            <% if !upload.processed? && upload.processing_started_at %>
+              <br /><small class="text-muted">Processing started at
+                            <%= time_tag upload.processing_started_at, localize(upload.created_at, format: :long) %>
+              </small>
+            <% elsif !upload.processed? %>
+              <br /><small class="text-muted">Processing starting...</small>
+            <% end %>
+          </div>
+
+          <% if upload.processed? %>
+            <div class="col-auto">
+              <%= link_to "View", upload, class: "stretched-link" %>
+            </div>
+          <% end %>
+      </div>
+    <% end %>
+
+    <% if @uploads.empty? && @search %>
+      <div class="alert alert-info">
+        No uploads found for "<%= @search.term %>".
+        <%= link_to "View all uploads", uploads_path, class: "text-reset" %>
+      </div>
+    <% elsif @uploads.empty?  %>
+      <div class="alert alert-info">
+        No uploads added yet. Drop a file anywhere to upload.
+      </div>
+    <% end %>
   <% end %>
 </div>
 
