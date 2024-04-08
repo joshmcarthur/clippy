@@ -37,7 +37,7 @@ class UploadsController < ApplicationController
   # PATCH/PUT /uploads/1 or /uploads/1.json
   def update
     respond_to do |format|
-      if @upload.update(upload_params)
+      if @upload.update(upload_params_for(:update))
         format.html { redirect_to upload_url(@upload), notice: t(".success") }
         format.json { render :show, status: :ok, location: @upload }
       else
