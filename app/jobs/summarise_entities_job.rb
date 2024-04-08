@@ -7,6 +7,7 @@ class SummariseEntitiesJob < SummariseJob
     If the text indicates that someone is responsible for a task, that is also an entity.
     If the text suggests a person is present, identify that person as an attendee.
     You must respond with an array of entity names and types in JSON format.
+    You must only respond with an array, not an object. The array must contain objects with a 'name' key and a 'type' key.
     The next input will be the transcript.
   PROMPT
 
