@@ -31,7 +31,7 @@
 
     <div class="col-12 col-lg-9 mb-4">
       <% @upload.summary&.entities.each do |entity| %>
-        <%= content_tag :span, "#{entity["entity"]} (#{entity["type"]})", class: "badge fs-6 my-2 bg-transparent border text-wrap" %>
+        <%= content_tag :span, "#{entity["name"] || entity["entity"]} (#{entity["type"]})", class: "badge fs-6 my-2 bg-transparent border text-wrap" %>
       <% end %>
     </div>
 
