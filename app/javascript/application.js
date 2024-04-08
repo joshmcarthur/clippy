@@ -3,3 +3,5 @@ import "@hotwired/turbo-rails";
 import "controllers";
 import * as ActiveStorage from "@rails/activestorage";
 import * as bootstrap from "bootstrap";
+
+ActiveStorage.start();
