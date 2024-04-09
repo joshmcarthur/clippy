@@ -56,7 +56,7 @@
 
           <% if upload.processed? %>
             <div class="col-auto">
-              <%= link_to "View", upload, class: "stretched-link" %>
+              <%= link_to "View", upload, class: "stretched-link", data: { turbo_frame: "_top" } %>
             </div>
           <% end %>
       </div>
