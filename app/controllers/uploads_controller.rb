@@ -8,6 +8,9 @@ class UploadsController < ApplicationController
 
   # GET /uploads/1 or /uploads/1.json
   def show
+    return render template: "uploads/processing" unless @upload.processed?
+
+    render
   end
 
   # GET /uploads/1/edit
