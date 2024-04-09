@@ -2,7 +2,6 @@
 # Performs a user-initiated search on the uploads table.
 class UploadSearch
   # MVP: Search in transcription full text,
-  # TODO: exact matches on entity name (and optional description)
   # TODO: Support multiple languages. We have the ISO code, we'd need to find the right dictionary.
   # TODO: Vector search on embeddings
   SEARCH = <<~SQL.squish.freeze
