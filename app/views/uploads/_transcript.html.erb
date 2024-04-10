@@ -1,6 +1,14 @@
-<section data-upload-sync-target="transcript">
+
+<section data-upload-sync-target="transcript" data-controller="transcript-clip" class="position-relative">
+<%= form_with url: clips_path, html: { data: { transcript_clip_target: "toolbar" }, style: "top: var(--top); left: var(--left);", class: "position-absolute d-none" } do |f| %>
+  <%= f.hidden_field :segment_start_id, data: { transcript_clip_target: "segmentStartInput" } %>
+  <%= f.hidden_field :segment_end_id, data: { transcript_clip_target: "segmentEndInput" } %>
+  <%= f.button "✂ Clip", class: "btn btn-sm btn-primary" %>
+<% end %>
+
 <% upload.transcript.segments.each do |segment| %>
-  <%= content_tag :a, segment.text, data: { starts: segment.range.first, ends: segment.range.last },
+  <%= content_tag :a, segment.text,
+                  data: { segment_id: segment.to_param, starts: segment.range.first, ends: segment.range.last },
                   id: dom_id(segment),
                   href: "##{dom_id(segment)}",
                   title: Time.at(segment.range.first).utc.strftime("%H:%M:%S"),
