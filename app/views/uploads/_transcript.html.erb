@@ -1,8 +1,8 @@
 
 <section data-upload-sync-target="transcript" data-controller="transcript-clip" class="position-relative">
-<%= form_with url: clips_path, html: { data: { transcript_clip_target: "toolbar" }, style: "top: var(--top); left: var(--left);", class: "position-absolute d-none" } do |f| %>
-  <%= f.hidden_field :segment_start_id, data: { transcript_clip_target: "segmentStartInput" } %>
-  <%= f.hidden_field :segment_end_id, data: { transcript_clip_target: "segmentEndInput" } %>
+<%= form_with model: Clip.new, html: { data: { transcript_clip_target: "toolbar" }, style: "top: var(--top); left: var(--left);", class: "position-absolute d-none" } do |f| %>
+  <%= f.hidden_field :start_segment_id, data: { transcript_clip_target: "segmentStartInput" } %>
+  <%= f.hidden_field :end_segment_id, data: { transcript_clip_target: "segmentEndInput" } %>
   <%= f.button "✂ Clip", class: "btn btn-sm btn-primary" %>
 <% end %>
 

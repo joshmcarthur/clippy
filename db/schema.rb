@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_06_074957) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_10_092043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_074957) do
     t.text "formatted"
     t.index ["upload_id", "sequence_number"], name: "index_audio_segments_on_upload_id_and_sequence_number", unique: true
     t.index ["upload_id"], name: "index_audio_segments_on_upload_id"
+  end
+
+  create_table "clips", force: :cascade do |t|
+    t.bigint "start_segment_id", null: false
+    t.bigint "end_segment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_segment_id"], name: "index_clips_on_end_segment_id"
+    t.index ["start_segment_id"], name: "index_clips_on_start_segment_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -175,6 +184,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_074957) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audio_segments", "uploads"
+  add_foreign_key "clips", "segments", column: "end_segment_id"
+  add_foreign_key "clips", "segments", column: "start_segment_id"
   add_foreign_key "segments", "transcripts"
   add_foreign_key "summaries", "transcripts"
   add_foreign_key "transcripts", "uploads"
