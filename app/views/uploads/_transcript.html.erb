@@ -6,13 +6,23 @@
   <%= f.button "✂ Clip", class: "btn btn-sm btn-primary" %>
 <% end %>
 
+<% start_of_section = true %>
 <% upload.transcript.segments.each do |segment| %>
-  <%= content_tag :a, segment.text,
-                  data: { segment_id: segment.to_param, starts: segment.range.first, ends: segment.range.last },
+  <%= content_tag :a,
+                  "[#{Time.at(segment.range.first).utc.strftime("%H:%M:%S")}]",
                   id: dom_id(segment),
                   href: "##{dom_id(segment)}",
-                  title: Time.at(segment.range.first).utc.strftime("%H:%M:%S"),
-                  class: "transcript-segment text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" %>
-  <% if segment.text.ends_with?(".") || segment.text.ends_with?("?") %><br /><br /><% end %>
+                  data: { action: "upload-sync#scrubTo", starts: segment.range.first, ends: segment.range.last },
+                  class: "user-select-none text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" if start_of_section -%>
+  <%= content_tag :span, segment.text,
+                  data: { bs_toggle: "popover", bs_title: "Test", segment_id: segment.to_param, starts: segment.range.first, ends: segment.range.last },
+                  id: dom_id(segment),
+                  class: "transcript-segment #{'bg-primary' if segment.clips.any?}" %>
+  <% if segment.breaks? %>
+    <% start_of_section = true %>
+    <br /><br />
+  <% else %>
+    <% start_of_section = false %>
+  <% end %>
 <% end %>
 </section>
