@@ -22,6 +22,8 @@ export default class extends Controller {
    * Get X, Y and selection width
    */
   getSelectionCoordinates(selection) {
+    if (!selection.rangeCount) return false;
+
     const r = selection.getRangeAt(0);
     const clip = r.getClientRects();
 
