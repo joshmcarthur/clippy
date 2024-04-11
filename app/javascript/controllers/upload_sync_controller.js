@@ -4,13 +4,6 @@ export default class extends Controller {
   static targets = ["media", "transcript"];
 
   connect() {
-    this.transcriptTarget.addEventListener("click", (event) => {
-      if (event.target.classList.contains("transcript-segment")) {
-        const time = event.target.dataset.starts;
-        this.mediaTarget.currentTime = parseFloat(time);
-      }
-    });
-
     this.mediaTarget.addEventListener("timeupdate", () => {
       const currentTime = this.mediaTarget.currentTime;
       const segments = this.transcriptTarget.querySelectorAll(".transcript-segment");
@@ -38,5 +31,10 @@ export default class extends Controller {
         }
       });
     });
+  }
+
+  scrubTo(event) {
+    const time = event.target.dataset.starts;
+    this.mediaTarget.currentTime = parseFloat(time);
   }
 }
