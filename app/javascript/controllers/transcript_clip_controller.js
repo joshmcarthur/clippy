@@ -1,27 +1,54 @@
-import SelectionController from "controllers/selection_controller";
+import { Controller } from "@hotwired/stimulus";
 
-export default class extends SelectionController {
-  static targets = ["toolbar", "segmentStartInput", "segmentEndInput"];
+export default class extends Controller {
+  static targets = ["button", "segmentStartInput", "segmentEndInput"];
+  TYPE_RANGE = "Range";
 
   resolveSegmentId(node) {
-    const elements = [node.parentElement, node.previousElementSibling, node.nextElementSibling];
-
-    return elements.find((element) => element?.dataset?.segmentId)?.dataset?.segmentId;
+    if (node?.dataset?.segmentId) {
+      return node.dataset.segmentId;
+    } else if (node.parentElement) {
+      return this.resolveSegmentId(node.parentElement);
+    }
   }
 
-  selectionChanged(selection) {
-    let anchorNodeSegmentId = this.resolveSegmentId(selection.anchorNode) || this.resolveSegmentId(selection.focusNode);
-    let focusNodeSegmentId = this.resolveSegmentId(selection.focusNode);
+  connect() {
+    // on selection change (like using keyboard arrows)
+    document.addEventListener("selectionchange", this.selectionChanged.bind(this));
 
-    if (anchorNodeSegmentId) {
-      this.lastAnchorNodeSegmentId = anchorNodeSegmentId;
+    // mouseup with editor scope
+    this.element.addEventListener("mouseup", this.selectionChanged.bind(this));
+
+    this.selectionChanged();
+  }
+
+  selectionChanged() {
+    this.buttonTarget.disabled = true;
+
+    const selection = document.getSelection();
+
+    if (selection.type !== this.TYPE_RANGE) {
+      return;
     }
 
-    if (focusNodeSegmentId) {
-      this.lastFocusNodeSegmentId = focusNodeSegmentId;
-    }
+    const range = selection.getRangeAt(0);
 
-    this.segmentStartInputTarget.value = this.lastAnchorNodeSegmentId;
-    this.segmentEndInputTarget.value = this.lastFocusNodeSegmentId;
+    // We can get a broad list of segments by looking at the DOM nodes in the range
+    const segmentEls = Array.from(range.cloneContents().querySelectorAll("[data-segment-id]"));
+    let segmentIds = segmentEls.map((el) => el.dataset.segmentId);
+
+    // BUT - only entirely contained nodes will be extracted. So we need to check the start and end nodes,
+    // and if they are not entirely contained, we need to add them to the list.
+    segmentIds.push(this.resolveSegmentId(range.startContainer));
+    segmentIds.push(this.resolveSegmentId(range.endContainer));
+
+    // Take advantage of segment IDs being inherently sequential to find the start and end of the selection
+    segmentIds = Array.from(new Set(segmentIds.filter((id) => id).sort()));
+
+    if (segmentIds.length > 0) {
+      this.buttonTarget.disabled = false;
+      this.segmentStartInputTarget.value = segmentIds[0];
+      this.segmentEndInputTarget.value = segmentIds[segmentIds.length - 1];
+    }
   }
 }
