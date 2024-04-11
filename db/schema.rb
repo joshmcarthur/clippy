@@ -57,12 +57,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_092043) do
   end
 
   create_table "clips", force: :cascade do |t|
-    t.bigint "start_segment_id", null: false
-    t.bigint "end_segment_id", null: false
+    t.bigint "transcript_id", null: false
+    t.numrange "range", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["end_segment_id"], name: "index_clips_on_end_segment_id"
-    t.index ["start_segment_id"], name: "index_clips_on_start_segment_id"
+    t.index ["transcript_id"], name: "index_clips_on_transcript_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -184,8 +183,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_092043) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audio_segments", "uploads"
-  add_foreign_key "clips", "segments", column: "end_segment_id"
-  add_foreign_key "clips", "segments", column: "start_segment_id"
+  add_foreign_key "clips", "transcripts"
   add_foreign_key "segments", "transcripts"
   add_foreign_key "summaries", "transcripts"
   add_foreign_key "transcripts", "uploads"

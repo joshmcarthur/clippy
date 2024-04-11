@@ -1,8 +1,8 @@
 class CreateClips < ActiveRecord::Migration[7.1]
   def change
     create_table :clips do |t|
-      t.belongs_to :start_segment, null: false, foreign_key: { to_table: :segments }
-      t.belongs_to :end_segment, null: false, foreign_key: { to_table: :segments }
+      t.belongs_to :transcript, null: false, foreign_key: true
+      t.numrange :range, null: false
 
       t.timestamps
     end
