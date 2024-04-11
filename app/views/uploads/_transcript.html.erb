@@ -1,5 +1,5 @@
 
-<section data-upload-sync-target="transcript" data-controller="transcript-clip" class="position-relative">
+<section data-upload-sync-target="transcript" class="position-relative">
 <%= form_with model: Clip.new, html: { data: { transcript_clip_target: "toolbar" }, style: "top: var(--top); left: var(--left);", class: "position-absolute d-none z-1" } do |f| %>
   <%= f.hidden_field :start_segment_id, data: { transcript_clip_target: "segmentStartInput" } %>
   <%= f.hidden_field :end_segment_id, data: { transcript_clip_target: "segmentEndInput" } %>
