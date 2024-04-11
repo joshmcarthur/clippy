@@ -3,6 +3,7 @@ $prefix: "clippy-";
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 @import "variables";
+@import "print";
 
 a {
   text-underline-offset: 0.375em;

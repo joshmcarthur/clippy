@@ -2,9 +2,9 @@
 
 <div class="container-fluid container-lg my-5" data-controller="upload-sync">
   <% if from_search? %>
-    <%= link_to "↰ Back to results", request.referer, class: "d-block mb-3" %>
+    <%= link_to "↰ Back to results", request.referer, class: "d-block mb-3 d-print-none" %>
   <% else %>
-    <%= link_to "↰ All uploads", uploads_path, class: "d-block mb-3" %>
+    <%= link_to "↰ All uploads", uploads_path, class: "d-block mb-3 d-print-none" %>
   <% end %>
 
   <div class="row align-items-center mb-5">
@@ -22,7 +22,7 @@
         <%= Time.at(@upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
       </div>
     </div>
-    <div class="col text-end col-lg-auto">
+    <div class="col text-end col-lg-auto d-print-none">
       <%= link_to "Edit", edit_upload_path(@upload), class: "btn btn-primary" %>
       <%= link_to "Delete", @upload, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
     </div>
@@ -37,7 +37,9 @@
       <%= render "entities" %>
     </div>
 
-    <div class="col-5 col-lg-6">
+    <div class="offset-3 offset-lg-2 d-none d-print-block">&nbsp;</div>
+
+    <div class="col-5 col-lg-6 d-print-none">
       <% if @upload.video? %>
         <video
           controls
@@ -60,7 +62,7 @@
 
     </div>
 
-    <div class="col-7 col-lg-6">
+    <div class="col-7 col-lg-6 col-print-12">
       <%= render "transcript", upload: @upload %>
     </div>
   </div>
