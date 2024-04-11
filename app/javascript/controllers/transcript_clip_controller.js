@@ -11,9 +11,17 @@ export default class extends SelectionController {
 
   selectionChanged(selection) {
     let anchorNodeSegmentId = this.resolveSegmentId(selection.anchorNode) || this.resolveSegmentId(selection.focusNode);
-    let focusNodeSegmentId = this.resolveSegmentId(selection.focusNode) || this.resolveSegmentId(selection.anchorNode);
+    let focusNodeSegmentId = this.resolveSegmentId(selection.focusNode);
 
-    this.segmentStartInputTarget.value = anchorNodeSegmentId;
-    this.segmentEndInputTarget.value = focusNodeSegmentId;
+    if (anchorNodeSegmentId) {
+      this.lastAnchorNodeSegmentId = anchorNodeSegmentId;
+    }
+
+    if (focusNodeSegmentId) {
+      this.lastFocusNodeSegmentId = focusNodeSegmentId;
+    }
+
+    this.segmentStartInputTarget.value = this.lastAnchorNodeSegmentId;
+    this.segmentEndInputTarget.value = this.lastFocusNodeSegmentId;
   }
 }
