@@ -15,7 +15,7 @@
                     data: { action: "upload-sync#scrubTo", starts: segment.range.first, ends: segment.range.last },
                     class: "user-select-none text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" if start_of_section -%>
     <%= content_tag :span, segment.text,
-                    class: "#{'bg-primary' if segment.clips.any?}" -%>
+                    class: ('bg-primary' if @upload.transcript.clips.any? { |clip| clip.range.overlap?(segment.range)}) %>
   </span>
   <% if segment.breaks? %>
     <% start_of_section = true %>
