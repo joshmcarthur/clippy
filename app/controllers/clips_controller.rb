@@ -2,18 +2,22 @@
 # Controller for creating clips from segments.
 class ClipsController < ApplicationController
   def create
-    @clip = Clip.create_from_segments(start_segment, end_segment)
+    @clip = Clip.create(transcript_id: transcript_id, range: clip_range)
 
     redirect_back fallback_location: @clip.upload
   end
 
   private
 
-  def start_segment
-    Segment.find(params.require(:clip).require(:start_segment_id))
+  def clip_param(key)
+    params.require(:clip).require(key)
   end
 
-  def end_segment
-    Segment.find(params.require(:clip).require(:end_segment_id))
+  def clip_range
+    clip_param(:starts)...clip_param(:ends)
+  end
+
+  def transcript_id
+    clip_param(:transcript_id)
   end
 end
