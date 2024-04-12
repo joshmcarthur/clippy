@@ -42,7 +42,7 @@
             <% if upload.audio.analyzed? %>
             <br /><small class="text-muted">
               Duration:
-              <%= Time.at(upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
+              <%= describe_play_time(upload.audio.metadata["duration"]) %>
             </small>
             <% end %>
             <% if !upload.processed? && upload.processing_started_at %>

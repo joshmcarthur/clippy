@@ -10,7 +10,7 @@
 <% upload.transcript.segments.each do |segment| %>
   <span class="transcript-segment" data-segment-id="<%= segment.to_param %>" id="<%= dom_id(segment) %>" data-starts="<%= segment.range.first %>" data-ends="<%= segment.range.last %>">
     <%= content_tag :a,
-                    "[#{Time.at(segment.range.first).utc.strftime("%H:%M:%S")}]",
+                    "[#{describe_play_time(segment.range.first)}]",
                     href: "##{dom_id(segment)}",
                     data: { action: "upload-sync#scrubTo", starts: segment.range.first, ends: segment.range.last },
                     class: "user-select-none text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" if start_of_section -%>

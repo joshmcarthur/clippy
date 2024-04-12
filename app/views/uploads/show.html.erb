@@ -19,7 +19,7 @@
 
       <div>
         Duration:
-        <%= Time.at(@upload.audio.metadata["duration"]).utc.strftime("%H:%M:%S") %>
+        <%= describe_play_time(@upload.audio.metadata["duration"]) %>
       </div>
     </div>
     <div class="col text-end col-lg-auto d-print-none">
