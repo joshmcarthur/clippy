@@ -60,6 +60,15 @@
         <%= link_to "Download", url_for(@upload.file), target: "_blank", download: true %>
       <% end %>
 
+      <% @upload.clips.each do |clip| %>
+        <figure class="clip">
+          <blockquote class="border-start border-3 border-primary ps-3"><%= clip.text %></blockquote>
+          <figcaption>
+            <%= link_to describe_play_time_range(clip.range.first, clip.range.last), "#t=#{clip.range.first.round}s", data: { turbo: false } %>
+          </figcaption>
+        </figure>
+      <% end%>
+
     </div>
 
     <div class="col-7 col-lg-6 col-print-12">
