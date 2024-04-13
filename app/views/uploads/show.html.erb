@@ -61,12 +61,18 @@
       <% end %>
 
       <% @upload.clips.each do |clip| %>
-        <figure class="clip">
-          <blockquote class="border-start border-3 border-primary ps-3"><%= clip.text %></blockquote>
-          <figcaption>
-            <%= link_to describe_play_time_range(clip.range.first, clip.range.last), "#t=#{clip.range.first.round}s", data: { turbo: false } %>
-          </figcaption>
-        </figure>
+        <div class="clip mb-4 d-flex border-start border-3 border-primary ps-3 mb-1">
+          <figure>
+            <blockquote class="mb-1"><%= clip.text %></blockquote>
+            <figcaption class="d-flex justify-content-between align-items-end">
+              <small><%= link_to describe_play_time_range(clip.range.first, clip.range.last), "#t=#{clip.range.first.round}s", data: { turbo: false } %></small>
+            </figcaption>
+          </figure>
+          <%= button_to "", clip, class: "btn-close", method: :delete,
+                              aria: { label: "Delete clip" },
+                              title: "Delete clip",
+                              data: { turbo_confirm: "Are you sure you want to delete this clip?" } %>
+        </div>
       <% end%>
 
     </div>
