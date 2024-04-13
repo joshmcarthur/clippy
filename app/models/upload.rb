@@ -11,6 +11,7 @@ class Upload < ApplicationRecord
   has_many :audio_segments, -> { order(:sequence_number) }, dependent: :destroy
   has_one :transcript, dependent: :destroy
   has_one :summary, through: :transcript
+  has_many :clips, -> { order(:range) }, through: :transcript
 
   validate :validate_file_content_type
   validate :validate_file_attached
