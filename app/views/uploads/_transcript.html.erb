@@ -9,8 +9,8 @@
 <% end %>
 
 <% start_of_section = true %>
-<% upload.transcript.segments.each do |segment| %>
-  <div class="transcript-segment" id="#t=<%= segment.range.first.round %>s" data-starts="<%= segment.range.first %>" data-ends="<%= segment.range.last %>">
+<% upload.transcript.segments.each_with_index do |segment, idx| %>
+  <span class="transcript-segment" id="#secs-<%= segment.range.first.round %>" data-starts="<%= segment.range.first %>" data-ends="<%= segment.range.last %>">
     <%= content_tag :a,
                     "[#{describe_play_time(segment.range.first)}]",
                     id: dom_id(segment, :start),
@@ -18,7 +18,7 @@
                     class: "user-select-none text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" if start_of_section -%>
     <%= content_tag :span, segment.text,
                     class: ('bg-primary' if @upload.transcript.clips.any? { |clip| clip.range.overlap?(segment.range)}) %>
-  </div>
+  </span>
   <% if segment.breaks? %>
     <% start_of_section = true %>
     <br /><br />
