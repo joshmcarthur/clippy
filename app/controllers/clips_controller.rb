@@ -7,6 +7,12 @@ class ClipsController < ApplicationController
     redirect_back fallback_location: @clip.upload
   end
 
+  def destroy
+    @clip = Clip.destroy(params[:id])
+
+    redirect_back fallback_location: @clip.upload
+  end
+
   private
 
   def clip_param(key)
