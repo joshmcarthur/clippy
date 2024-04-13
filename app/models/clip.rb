@@ -5,13 +5,11 @@ class Clip < ApplicationRecord
   belongs_to :transcript
   has_one :upload, through: :transcript
 
-  def self.create_from_segments(start_segment, end_segment)
-    # Make sure that segments are in time order, in case they have been selected in reverse
-    start_segment, end_segment = [start_segment, end_segment].sort_by { |s| s.range.first }
+  def segments
+    @segments ||= transcript.segments.where("range && numrange(?, ?)", range.first, range.last).order(:range)
+  end
 
-    Clip.create(
-      transcript: start_segment.transcript,
-      range: start_segment.range.first..end_segment.range.last
-    )
+  def text
+    segments.map(&:text).join(" ")
   end
 end
