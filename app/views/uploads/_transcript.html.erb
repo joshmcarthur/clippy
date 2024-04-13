@@ -1,9 +1,11 @@
 
-<section data-upload-sync-target="transcript" data-controller="transcript-clip" class="position-relative">
-<%= form_with model: Clip.new, html: { style: "top:1rem;", class: "sticky-top alert alert-info z-1" } do |f| %>
-  <%= f.hidden_field :start_segment_id, data: { transcript_clip_target: "segmentStartInput" } %>
-  <%= f.hidden_field :end_segment_id, data: { transcript_clip_target: "segmentEndInput" } %>
-  <%= f.button "✂ Clip", class: "btn btn-sm btn-primary", data: { transcript_clip_target: "button" } %>
+<section data-upload-sync-target="transcript" data-controller="clip" class="position-relative">
+<%= form_with model: Clip.new, html: { style: "top:1rem;", class: "sticky-top alert alert-info d-flex justify-content-between align-items-center z-1" } do |f| %>
+  <%= f.hidden_field :transcript_id, value: upload.transcript.to_param %>
+  <%= f.hidden_field :starts, data: { clip_target: "rangeStartsInput" } %>
+  <%= f.hidden_field :ends, data: { clip_target: "rangeEndsInput" } %>
+  <div data-clip-target="message">[Select some text to clip]</div>
+  <%= f.button "✂ Clip", class: "btn btn-sm btn-primary", data: { clip_target: "button" } %>
 <% end %>
 
 <% start_of_section = true %>
