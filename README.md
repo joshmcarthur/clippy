@@ -148,10 +148,11 @@ original, but does serve to identify the application in things like page titles.
   [Stimulus](https://stimulus.hotwired.dev/)
 - Plenty of others, see the [Gemfile](Gemfile) for a list of dependencies.
 
-## Contributing
+## Contributing or reusing this project
 
 Contributions are welcome, but not really expected. If you really want to
-contribute something, please understand that:
+contribute something, or if you think this project might be useful to you,
+please understand that:
 
 - This is essentially a learning project that I've built for fun and to explore
   the experience of starting a new Rails application with the default
