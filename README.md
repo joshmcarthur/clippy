@@ -143,7 +143,7 @@ original, but does serve to identify the application in things like page titles.
 - [PostgreSQL](https://postgresql.org/) - Database engine
 - [GoodJob](https://github.com/bensheldon/good_job) - Background job batching
   and processing
-- [Hotwite](https://hotwired.dev/), particularly
+- [Hotwire](https://hotwired.dev/), particularly
   [Turbo](https://turbo.hotwired.dev/) and
   [Stimulus](https://stimulus.hotwired.dev/)
 - Plenty of others, see the [Gemfile](Gemfile) for a list of dependencies.
