@@ -96,9 +96,9 @@ required to restrict and control access in a deployed environment._
 ## Running the tests
 
 The tests in this application can be run using `rails test test:system`. This
-will run unit, integration and system tests. _It's important to note that there
-are currently no tests for this application_, but this is how they can and will
-be run.
+will run unit, integration and system tests. **It's important to note that there
+are currently no tests for this application**, but this is how they can be run
+if and when they exist.
 
 Because of the use of general-purpose Stimulus controllers in this application,
 there are also aspirations to test these controllers with Jest tests, at which
