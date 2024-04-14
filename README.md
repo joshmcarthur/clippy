@@ -51,7 +51,8 @@ At this stage, the application requires a recent version of PostgreSQL for:
 1. Range support
 2. JSON storage and querying support
 3. Full-text search support
-4. GoodJob queueing (e.g. LISTEN/NOTIFY among other PG-specific features used by GoodJob)
+4. GoodJob queueing (e.g. LISTEN/NOTIFY among other PG-specific features used by
+   GoodJob)
 
 It's planned to replace all this with SQLite alternatives, so as to allow the
 application to be run self-contained, without dependencies on external systems.
