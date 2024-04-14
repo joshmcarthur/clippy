@@ -123,12 +123,12 @@ a container, you should provide a Docker volume mounted to the '/rails/storage/'
 directory that is writeable by the container. If you do not do this, uploaded
 files will be lost when the container is replaced.
 
-_Note that this application does not include any authentication or access
-control._ It's expected that this application be run behind a proxying web
-server such as Nginx, Caddy, or similar which can authenticate and manage
-traffic. Alternatively, Cloudflare offers tunneling and access control products
-which can be used to control access to an instance of this application run on a
-local network.
+**Note that this application does not include any authentication or access
+control.** It's expected that this application be run behind a proxying web
+server such as Nginx or Caddy which can authenticate and manage traffic.
+Alternatively, Cloudflare offers tunneling and access control services which can
+be used to control access to an instance of this application run on a local
+network.
 
 ## The name 'Clippy'
 
