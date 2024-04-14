@@ -183,4 +183,4 @@ please understand that:
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see
-[LICENSE.md](LICENSE.md) for details.
+[LICENSE](LICENSE) for details.
