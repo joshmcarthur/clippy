@@ -44,6 +44,10 @@ credentials](https://edgeguides.rubyonrails.org/security.html#custom-credentials
 to store your OpenAI key within the repository encrypted, or inject or otherwise
 provide the API key using an environment variable.
 
+The only required permissions the API key requires is 'write' access to 'Model
+capabilities', allowing access to Whisper transcription and ChatGPT chat
+completion (for transcription processing).
+
 #### PostgreSQL
 
 At this stage, the application requires a recent version of PostgreSQL for:
@@ -53,6 +57,7 @@ At this stage, the application requires a recent version of PostgreSQL for:
 3. Full-text search support
 4. GoodJob queueing (e.g. LISTEN/NOTIFY among other PG-specific features used by
    GoodJob)
+5. ActionCable pubsub
 
 It's planned to replace all this with SQLite alternatives, so as to allow the
 application to be run self-contained, without dependencies on external systems.
