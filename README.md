@@ -59,7 +59,7 @@ application to be run self-contained, without dependencies on external systems.
 
 ## Processing steps
 
-The processing pipeline is comparatively simple:
+The processing pipeline is pretty simple:
 
 1. Audio is extracted from the video (or copied as-is if an audio file is
    provided)
