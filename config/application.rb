@@ -23,7 +23,10 @@ module Clippy
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = ENV.fetch("TZ", "Central Time (US & Canada)")
+
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.secret_key_base = Rails.application.credentials.secret_key_base || ENV['SECRET_KEY_BASE']
   end
 end
