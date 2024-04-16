@@ -1,4 +1,6 @@
 class Segment < ApplicationRecord
+  include Ranged
+
   belongs_to :transcript
   has_one :upload, through: :transcript
 

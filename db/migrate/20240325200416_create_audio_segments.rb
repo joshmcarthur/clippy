@@ -3,7 +3,8 @@ class CreateAudioSegments < ActiveRecord::Migration[7.1]
     create_table :audio_segments do |t|
       t.integer :sequence_number
       t.numeric :duration
-      t.numrange :time
+      t.float :start_time
+      t.float :end_time
       t.belongs_to :upload, null: false, foreign_key: true
       t.json :raw, default: {}
 

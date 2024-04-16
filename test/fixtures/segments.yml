@@ -2,12 +2,14 @@
 
 one:
   transcript: one
-  range:
+  start_time:
+  end_time
   text: MyText
   raw: {}
 
 two:
   transcript: two
-  range:
+  start_time:
+  end_time:
   text: MyText
   raw: {}
