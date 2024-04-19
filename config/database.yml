@@ -16,23 +16,5 @@
 default: &default
   adapter: litedb
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= Litesupport.root.join("clippy.sqlite3") %> # storage/database/{RAILS_ENV}/clippy.sqlite3
   idle_timeout: 0
-
-development:
-  <<: *default
-  database: storage/development.sqlite3
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: storage/test.sqlite3
-# Warning: Make sure your production database path is on a persistent
-# volume, otherwise your application data could be deleted between deploys.
-#
-# You may also set the Litesupport.root in production via the
-# `LITESTACK_DATA_PATH` environment variable.
-production:
-  <<: *default
-  database: storage/production.sqlite3
