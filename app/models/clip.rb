@@ -8,7 +8,7 @@ class Clip < ApplicationRecord
   has_one :upload, through: :transcript
 
   def segments
-    @segments ||= transcript.segments.time_between(start_time, end_time).ordered
+    @segments ||= transcript.segments.between_time(start_time, end_time).ordered
   end
 
   def text
