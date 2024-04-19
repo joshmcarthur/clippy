@@ -28,8 +28,8 @@ class CollateAudioSegmentsJob < SummariseJob
 
         transcript.segments.where!(
           text: text,
-          start_time: audio_segment.time.begin + starts,
-          end_time: audio_segment.time.begin + ends
+          start_time: audio_segment.start_time + starts,
+          end_time: audio_segment.start_time + ends
         ).first_or_create!(
           raw: segment_data
         )
