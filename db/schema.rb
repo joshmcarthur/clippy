@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_10_092043) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_101236) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_092043) do
     t.string "language", limit: 5, null: false
     t.datetime "processing_started_at"
     t.datetime "processing_ended_at"
+    t.string "processing_stage", default: "pending", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
