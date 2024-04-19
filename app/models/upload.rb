@@ -11,7 +11,17 @@ class Upload < ApplicationRecord
   has_many :audio_segments, -> { order(:sequence_number) }, dependent: :destroy
   has_one :transcript, dependent: :destroy
   has_one :summary, through: :transcript
-  has_many :clips, -> { order(:range) }, through: :transcript
+  has_many :clips, -> { ordered }, through: :transcript
+
+  enum processing_stage: {
+    "started" => "started",
+    "pending" => "pending",
+    "extracting_audio" => "extracting_audio",
+    "transcribing" => "transcribing",
+    "collating" => "collating",
+    "summarising" => "summarising",
+    "complete" => "complete"
+  }
 
   validate :validate_file_content_type
   validate :validate_file_attached

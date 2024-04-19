@@ -65,7 +65,7 @@
           <figure>
             <blockquote class="mb-1"><%= clip.text %></blockquote>
             <figcaption class="d-flex justify-content-between align-items-end">
-              <small><%= link_to describe_play_time_range(clip.range.first, clip.range.last), "#t=#{clip.range.first.round}s", data: { turbo: false } %></small>
+              <small><%= link_to describe_play_time_range(clip.start_time, clip.end_time), "#t=#{clip.start_time.round}s", data: { turbo: false } %></small>
             </figcaption>
           </figure>
           <%= button_to "", clip, class: "btn-close", method: :delete,

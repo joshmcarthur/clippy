@@ -48,9 +48,10 @@
             <% if !upload.processed? && upload.processing_started_at %>
               <br /><small class="text-muted">Processing started at
                             <%= time_tag upload.processing_started_at, localize(upload.created_at, format: :long) %>
+                            (<%= upload.processing_stage %>)
               </small>
             <% elsif !upload.processed? %>
-              <br /><small class="text-muted">Processing starting...</small>
+              <br /><small class="text-muted">Waiting to process...</small>
             <% end %>
           </div>
 

@@ -34,7 +34,8 @@ class ExtractAudioJob < ApplicationJob
 
       segment.update!(
         duration: duration,
-        time: total_duration..(total_duration += duration)
+        start_time: total_duration,
+        end_time: total_duration += duration
       )
     end
   end

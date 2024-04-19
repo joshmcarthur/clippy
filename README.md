@@ -48,20 +48,6 @@ The only required permissions the API key requires is 'write' access to 'Model
 capabilities', allowing access to Whisper transcription and ChatGPT chat
 completion (for transcription processing).
 
-#### PostgreSQL
-
-At this stage, the application requires a recent version of PostgreSQL for:
-
-1. Range support
-2. JSON storage and querying support
-3. Full-text search support
-4. GoodJob queueing (e.g. LISTEN/NOTIFY among other PG-specific features used by
-   GoodJob)
-5. ActionCable pubsub
-
-It's planned to replace all this with SQLite alternatives, so as to allow the
-application to be run self-contained, without dependencies on external systems.
-
 ## Processing steps
 
 The processing pipeline is pretty simple:
@@ -147,7 +133,7 @@ original, but does serve to identify the application in things like page titles.
 - [Ruby on Rails](https://rubyonrails.org/) - Web framework
 - [Bootstrap 5](https://getbootstrap.com/) - UI and utility class framework
 - [PostgreSQL](https://postgresql.org/) - Database engine
-- [GoodJob](https://github.com/bensheldon/good_job) - Background job batching
+- [Litestack](https://github.com/oldmoe/litestack) - Tools for running SQLite in production
   and processing
 - [Hotwire](https://hotwired.dev/), particularly
   [Turbo](https://turbo.hotwired.dev/) and

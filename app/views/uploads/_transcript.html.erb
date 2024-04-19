@@ -10,11 +10,11 @@
 
 <% start_of_section = true %>
 <% upload.transcript.segments.each_with_index do |segment, idx| %>
-  <span class="transcript-segment" id="#secs-<%= segment.range.first.round %>" data-starts="<%= segment.range.first %>" data-ends="<%= segment.range.last %>">
+  <span class="transcript-segment" id="#secs-<%= segment.start_time.round %>" data-starts="<%= segment.start_time %>" data-ends="<%= segment.end_time %>">
     <%= content_tag :a,
-                    "[#{describe_play_time(segment.range.first)}]",
+                    "[#{describe_play_time(segment.start_time)}]",
                     id: dom_id(segment, :start),
-                    data: { action: "upload-sync#scrubTo", starts: segment.range.first, ends: segment.range.last },
+                    data: { action: "upload-sync#scrubTo", starts: segment.start_time, ends: segment.end_time },
                     class: "user-select-none text-reset link-underline-light link-underline-opacity-0 link-underline-opacity-75-hover" if start_of_section -%>
     <%= content_tag :span, segment.text,
                     class: ('bg-primary' if @upload.transcript.clips.any? { |clip| clip.range.overlap?(segment.range)}) %>
