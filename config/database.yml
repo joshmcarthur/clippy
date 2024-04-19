@@ -18,6 +18,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: <%= Litesupport.root.join("clippy.sqlite3") %> # storage/database/{RAILS_ENV}/clippy.sqlite3
   idle_timeout: 0
+  timeout: 5000
+  default_transaction_mode: IMMEDIATE
 
 development:
   <<: *default
