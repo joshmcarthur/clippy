@@ -41,7 +41,7 @@ class ProcessUploadJob < ApplicationJob
   end
 
   def start(upload)
-    upload.update!(processing_started_at: Time.zone.now)
+    upload.update!(processing_started_at: Time.zone.now, processing_stage: :started)
   end
 
   def complete(upload)
