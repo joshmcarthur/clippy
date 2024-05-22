@@ -70,6 +70,10 @@ USER rails:rails
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
+# Configure timeouts to be optimised for file uploads
+ENV HTTP_READ_TIMEOUT=600 \
+    HTTP_WRITE_TIMEOUT=600
+
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 80
 EXPOSE 443
