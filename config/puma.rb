@@ -19,8 +19,8 @@ if ENV["RAILS_ENV"] == "production"
 end
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
-# terminating a worker in development environments.
-worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
+# terminating a worker
+worker_timeout 3600
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 port ENV.fetch("PORT") { 3000 }
